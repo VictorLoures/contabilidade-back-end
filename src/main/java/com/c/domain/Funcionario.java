@@ -23,92 +23,13 @@ public class Funcionario {
 	private Double salarioTotal;
 	
 	public Funcionario(Integer id, String nome, String cpf, String telefone, String email, Double salarioBruto) {
-		
-		
-		
-			this.salarioBruto = salarioBruto;
-			//para saber o desconto da passagem
-			double salarioBrutoInteiroPassagem = salarioBruto;
-			//para saber o desconto da alimentacao
-			double salarioBrutoInteiroAlimentacao = salarioBruto;
-			//valor de quanto e gasto em passagens
-			double passagens = (2 * 3.75) * 21;
-			//6% do salario bruto
-			double porcentagemSalario = salarioBruto * 0.06;
-			
-			if(porcentagemSalario > passagens) {
-				salarioBrutoInteiroPassagem = salarioBruto - (salarioBrutoInteiroPassagem - porcentagemSalario);
-				this.valeTransporte = salarioBrutoInteiroPassagem;
-			}else {
-				salarioBrutoInteiroPassagem = salarioBruto - (salarioBruto - passagens);
-				this.valeTransporte = salarioBrutoInteiroPassagem;
-			}
-			
-			salarioBrutoInteiroAlimentacao =(salarioBrutoInteiroAlimentacao * 0.05);
-			this.valeAlimentacao = salarioBrutoInteiroAlimentacao;
-				
-			double desc = 0.0;
-			double salarioInss = 0.0;
-			double salarioIrrf = 0.0;
-			//INSS
-			if(salarioBruto <= 1100) {
-				desc = salarioBruto * 0.075;
-				salarioInss =  desc;
-				this.inss = salarioInss;
-			}else if(salarioBruto >= 1100.01 && salarioBruto <= 2203.48) {
-				desc = salarioBruto * 0.09;
-				salarioInss = desc;
-				this.inss = salarioInss;
-				
-			}else if(salarioBruto >= 2203.49 && salarioBruto <= 3305.22) {
-				desc = salarioBruto * 0.12;
-				salarioInss = desc;
-				this.inss = salarioInss;
-				
-			}else if(salarioBruto >= 3305.23 && salarioBruto <= 6433.57) {
-				desc = (salarioBruto / 100) * 14;
-				salarioInss =  desc;
-				this.inss = salarioInss;
-				
-			}else if(salarioBruto > 6433.57){
-				desc = (salarioBruto / 100) * 14;
-				salarioInss =  desc;
-				this.inss = salarioInss;
-				//IRRF
-			}
-			
-			if(salarioBruto <= 1100) {
-				desc = salarioBruto * 0.075;
-				salarioIrrf =  desc;
-				this.irrf = salarioIrrf;
-			}else if(salarioBruto >= 1100.01 && salarioBruto <= 2203.48) {
-				desc = salarioBruto * 0.075;
-				salarioIrrf =  desc;
-				this.irrf = salarioIrrf;
-				
-			}else if(salarioBruto >= 2203.49 && salarioBruto <= 3305.22) {
-				desc = salarioBruto * 0.12;
-				salarioIrrf =  desc;
-				this.irrf = salarioIrrf;
-				
-			}else if(salarioBruto >= 3305.23 && salarioBruto <= 6433.57) {
-				desc = (salarioBruto / 100) * 14;
-				salarioIrrf =  desc;
-				this.irrf = salarioIrrf;
-				
-			}else {
-				desc = (salarioBruto / 100) * 14;
-				salarioIrrf =  desc;
-				this.irrf = salarioIrrf;
-			}
-			
-			this.salarioTotal = (salarioBruto - salarioBrutoInteiroAlimentacao - salarioBrutoInteiroPassagem - salarioInss - salarioIrrf);
 			
 			this.id = id;
 			this.nome = nome;
 			this.cpf = cpf;
 			this.telefone = telefone;
 			this.email = email;
+			calculos(salarioBruto);
 			
 	}
 
@@ -228,10 +149,85 @@ public class Funcionario {
 			return false;
 		return true;
 	}
-
 	
+	public void calculos(double salario) {
+		this.salarioBruto = salario;
+		//para saber o desconto da passagem
+		double salarioBrutoInteiroPassagem = salarioBruto;
+		//para saber o desconto da alimentacao
+		double salarioBrutoInteiroAlimentacao = salarioBruto;
+		//valor de quanto e gasto em passagens
+		double passagens = (2 * 3.75) * 21;
+		//6% do salario bruto
+		double porcentagemSalario = salarioBruto * 0.06;
+		
+		if(porcentagemSalario > passagens) {
+			salarioBrutoInteiroPassagem = salarioBruto - (salarioBrutoInteiroPassagem - porcentagemSalario);
+			this.valeTransporte = salarioBrutoInteiroPassagem;
+		}else {
+			salarioBrutoInteiroPassagem = salarioBruto - (salarioBruto - passagens);
+			this.valeTransporte = salarioBrutoInteiroPassagem;
+		}
+		
+		salarioBrutoInteiroAlimentacao =(salarioBrutoInteiroAlimentacao * 0.05);
+		this.valeAlimentacao = salarioBrutoInteiroAlimentacao;
+			
+		double desc = 0.0;
+		double salarioInss = 0.0;
+		double salarioIrrf = 0.0;
+		//INSS
+		if(salarioBruto <= 1100) {
+			desc = salarioBruto * 0.075;
+			salarioInss =  desc;
+			this.inss = salarioInss;
+		}else if(salarioBruto >= 1100.01 && salarioBruto <= 2203.48) {
+			desc = salarioBruto * 0.09;
+			salarioInss = desc;
+			this.inss = salarioInss;
+			
+		}else if(salarioBruto >= 2203.49 && salarioBruto <= 3305.22) {
+			desc = salarioBruto * 0.12;
+			salarioInss = desc;
+			this.inss = salarioInss;
+			
+		}else if(salarioBruto >= 3305.23 && salarioBruto <= 6433.57) {
+			desc = (salarioBruto / 100) * 14;
+			salarioInss =  desc;
+			this.inss = salarioInss;
+			
+		}else if(salarioBruto > 6433.57){
+			desc = (salarioBruto / 100) * 14;
+			salarioInss =  desc;
+			this.inss = salarioInss;
+			//IRRF
+		}
+		
+		if(salarioBruto <= 1100) {
+			desc = salarioBruto * 0.075;
+			salarioIrrf =  desc;
+			this.irrf = salarioIrrf;
+		}else if(salarioBruto >= 1100.01 && salarioBruto <= 2203.48) {
+			desc = salarioBruto * 0.075;
+			salarioIrrf =  desc;
+			this.irrf = salarioIrrf;
+			
+		}else if(salarioBruto >= 2203.49 && salarioBruto <= 3305.22) {
+			desc = salarioBruto * 0.12;
+			salarioIrrf =  desc;
+			this.irrf = salarioIrrf;
+			
+		}else if(salarioBruto >= 3305.23 && salarioBruto <= 6433.57) {
+			desc = (salarioBruto / 100) * 14;
+			salarioIrrf =  desc;
+			this.irrf = salarioIrrf;
+			
+		}else {
+			desc = (salarioBruto / 100) * 14;
+			salarioIrrf =  desc;
+			this.irrf = salarioIrrf;
+		}
+		
+		this.salarioTotal = (salarioBruto - salarioBrutoInteiroAlimentacao - salarioBrutoInteiroPassagem - salarioInss - salarioIrrf);
+	}
 	
-	
-	
-
 }
